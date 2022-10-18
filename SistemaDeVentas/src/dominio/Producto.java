@@ -15,7 +15,7 @@ public class Producto {
     //Constructores
 
     public Producto() {
-        
+        this.idProductos = ++Producto.contadorProductos;
     }
 
     public Producto(String nombre, double precio) {

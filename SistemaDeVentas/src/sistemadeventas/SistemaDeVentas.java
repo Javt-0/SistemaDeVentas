@@ -35,11 +35,11 @@ public class SistemaDeVentas {
         o1.agregarProducto(p5);
         o1.agregarProducto(p6);
         o1.agregarProducto(p7);
-        o2.agregarProducto(p8);
-        o2.agregarProducto(p9);
-        o2.agregarProducto(p1);
-        o2.agregarProducto(p2);
-        o2.agregarProducto(p5);
+        o1.agregarProducto(p8);
+        o1.agregarProducto(p9);
+        o1.agregarProducto(p1);
+        o1.agregarProducto(p2);
+        o1.agregarProducto(p5);
         
         o1.mostrarOrden();
         o2.mostrarOrden();
