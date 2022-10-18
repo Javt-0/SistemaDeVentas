@@ -53,12 +53,12 @@ public class Orden {
     //ToString    
     
     //Metodos
+    //Se crea esta variabel para asegurarnos que no supere el maximo
     static int contMax = 0;
     public void agregarProducto(Producto producto){
-        
-        if(contMax < maxProductos){
+        if(this.productos.size() < maxProductos){
             this.productos.add(producto);
-            contMax ++;
+            //se va sumando cada ves que se añade un producto
         }else{
             System.out.println("La cesta esta llena lo siento (MAX. 10)");
         }
@@ -73,7 +73,7 @@ public class Orden {
     }
     
     public void mostrarOrden(){
-        System.out.println("Orden numero: " + contadorOrdenes);
+        System.out.println("Orden numero: " + this.idOrden);
         for(int i=0; i<this.productos.size(); i++){
             System.out.println(this.productos.get(i));
         }

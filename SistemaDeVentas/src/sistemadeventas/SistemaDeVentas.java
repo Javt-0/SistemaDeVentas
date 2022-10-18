@@ -13,6 +13,7 @@ public class SistemaDeVentas {
     
     public static void main(String[] args) {
         Orden o1 = new Orden();
+        Orden o2 = new Orden();
         Producto p1 = new Producto("Patata", 2.4);
         Producto p2 = new Producto("Leche", 1.15);
         Producto p3 = new Producto("Huevos", 3.60);
@@ -34,14 +35,14 @@ public class SistemaDeVentas {
         o1.agregarProducto(p5);
         o1.agregarProducto(p6);
         o1.agregarProducto(p7);
-        o1.agregarProducto(p8);
-        o1.agregarProducto(p9);
-        o1.agregarProducto(p10);
-        o1.agregarProducto(p11);
-        o1.agregarProducto(p12);
+        o2.agregarProducto(p8);
+        o2.agregarProducto(p9);
+        o2.agregarProducto(p1);
+        o2.agregarProducto(p2);
+        o2.agregarProducto(p5);
         
         o1.mostrarOrden();
-        
+        o2.mostrarOrden();
         System.out.printf("\nEl total a pagar es %.2f€\n",o1.calcularTotal());
     }
     
