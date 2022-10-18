@@ -16,7 +16,7 @@ public class Orden {
     //Constructores
 
     public Orden() {
-        
+        this.idOrden = ++Orden.contadorOrdenes;
     }
 
     //SET
@@ -50,38 +50,32 @@ public class Orden {
         return this.idOrden == other.idOrden;
     }
     
-    //ToString
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Orden{");
-        sb.append("idOrden=").append(idOrden);
-        sb.append(", productos=").append(productos);
-        sb.append('}');
-        return sb.toString();
-    }
-    
+    //ToString    
     
     //Metodos
+    static int contMax = 0;
     public void agregarProducto(Producto producto){
-        contadorOrdenes ++;
         
-        if(contadorOrdenes > maxProductos){
+        if(contMax < maxProductos){
             this.productos.add(producto);
+            contMax ++;
         }else{
             System.out.println("La cesta esta llena lo siento (MAX. 10)");
         }
     }
     
     public double calcularTotal(){
-        
-        return 0;
+        double total = 0;
+        for(int i=0; i<this.productos.size(); i++){
+            total += this.productos.get(i).getPrecio();
+        }
+        return total;
     }
     
     public void mostrarOrden(){
-        for(int i=0; i<productos.size(); i++){
-            System.out.println("Producto " + productos.size() + ": " + productos.get(i));
+        System.out.println("Orden numero: " + contadorOrdenes);
+        for(int i=0; i<this.productos.size(); i++){
+            System.out.println(this.productos.get(i));
         }
     }
 }

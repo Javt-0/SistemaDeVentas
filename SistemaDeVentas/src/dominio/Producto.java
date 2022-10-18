@@ -6,6 +6,7 @@ package dominio;
  * @author jonat
  */
 public class Producto {
+
     private int idProductos;
     private String nombre;
     private double precio;
@@ -18,6 +19,7 @@ public class Producto {
     }
 
     public Producto(String nombre, double precio) {
+        this.idProductos = ++Producto.contadorProductos;
         this.nombre = nombre;
         this.precio = precio;
     }
@@ -75,11 +77,10 @@ public class Producto {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Producto{");
-        sb.append("idProductos=").append(idProductos);
-        sb.append(", nombre=").append(nombre);
-        sb.append(", precio=").append(precio);
-        sb.append('}');
+        sb.append("\nProducto ");
+        sb.append("").append(idProductos);
+        sb.append(": \n").append(nombre);
+        sb.append("\nPrecio ").append(precio);
         return sb.toString();
     }
 }
