@@ -18,9 +18,9 @@ public class SistemaDeVentas {
         
         Orden o1 = new Orden();
         Orden o2 = new Orden();
-        Producto p1 = new Producto("Patata", 2.4);
-        Producto p2 = new Producto("Leche", 1.15);
-        Producto p3 = new Producto("Huevos", 3.60);
+        //Producto p1 = new Producto("Patata", 2.4);
+        //Producto p2 = new Producto("Leche", 1.15);
+        /*Producto p3 = new Producto("Huevos", 3.60);
         
         
         o1.agregarProducto(p1);
@@ -47,11 +47,13 @@ public class SistemaDeVentas {
         o2.agregarProducto(p3);
         o2.agregarProducto(p1);
         o2.agregarProducto(p2);
-        o2.agregarProducto(p3);
+        o2.agregarProducto(p3);*/
         
         IAccesoDatos impleTxt = new ImpTxt();
-        impleTxt.escribir("Producto.txt", o1);
-        impleTxt.escribir("Producto.txt", o2);
+        impleTxt.crearProductosTxt("Producto.txt");
+        impleTxt.introducirProducto();
+        impleTxt.introducirProducto();
+        //impleTxt.escribir("Ordenes.txt", o2);
         
         //o1.mostrarOrden();
     }

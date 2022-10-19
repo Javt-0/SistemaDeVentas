@@ -2,6 +2,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -32,21 +33,19 @@ public class Orden {
     public int getIdOrden() {
         return idOrden;
     }
-    
-    
-
-    //hashCode and equals
     @Override
-    public int hashCode() {
+    public int hashCode(){
         int hash = 7;
-        hash = 97 * hash + this.idOrden;
+        hash = 53 * hash + this.idOrden;
+        hash = 53 * hash + Objects.hashCode(this.productos);
         return hash;
     }
 
+    //hashCode and equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
-            return true;
+            return true;    
         }
         if (obj == null) {
             return false;
@@ -55,13 +54,16 @@ public class Orden {
             return false;
         }
         final Orden other = (Orden) obj;
-        return this.idOrden == other.idOrden;
+        if (this.idOrden != other.idOrden) {
+            return false;
+        }
+        return Objects.equals(this.productos, other.productos);
     }
-    
-    //ToString    
+
+    //ToString
     
     //Metodos
-    public void agregarProducto(Producto producto){
+    public void agregarProducto(Producto producto) {
         if(this.productos.size() < maxProductos){
             this.productos.add(producto);
         }else{

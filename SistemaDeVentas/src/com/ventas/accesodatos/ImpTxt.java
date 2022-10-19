@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.ventas.accesodatos;
 
 import dominio.Orden;
@@ -11,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -18,29 +15,33 @@ import java.util.ArrayList;
  */
 public class ImpTxt implements IAccesoDatos{
     
+    static private ArrayList<Producto> colecProductos = new ArrayList<>();
+    static private Scanner teclado = new Scanner(System.in);
+    
     @Override
-    public void crear() {
+    public void crearOrdenesTxt() {
         System.out.println("Insertando desde MySql");
     }
 
     @Override
-    public void leer() { 
+    public void leerOrden() { 
         System.out.println("Listando desde MySql");
     }
 
     @Override
-    public void escribir(String nombre, Orden o1) { 
+    public void escribirOrden(String nombre, Orden o1) { 
         ArrayList<Producto> produc = (ArrayList<Producto>)o1.getProductos().clone();
         PrintWriter salida = null;
-        
+        File archivo= new File(nombre);
         try {
-                salida = new PrintWriter(new FileWriter(nombre, true));
-                salida.print("Orden: " + o1.getIdOrden() + "\n");
-            } catch (IOException ex) {
-                ex.printStackTrace(System.out);
-            }finally{
-                salida.close();
-            }
+            salida = new PrintWriter(archivo);
+            //salida = new PrintWriter(new FileWriter(nombre, true));
+            salida.print("Orden: " + o1.getIdOrden() + "\n");
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            salida.close();
+        }
         
         //File archivo = new File(nombre);
         for(int i=0; i<produc.size(); i++){
@@ -56,5 +57,48 @@ public class ImpTxt implements IAccesoDatos{
             }
         }
         
+    }
+    
+    @Override
+    public void crearProductosTxt(String nombre){
+        File archivo = new File(nombre);
+        try {
+            PrintWriter salida = new PrintWriter(archivo);
+            salida.close();
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+    }
+    
+    @Override
+    public void leerProductos(){
+    
+    }
+    
+    @Override
+    public void introducirProducto(){
+        String nombre;
+        double precio;
+        System.out.print("\nIngrese el nombre del producto: ");
+        nombre = teclado.nextLine().toUpperCase();
+        Producto p = new Producto(nombre);
+        
+        while(colecProductos.contains(p) == true){
+            System.out.print("El producto ya se encuentra registrado, intente de nuevo porfavor: ");
+            nombre = teclado.nextLine().toUpperCase();
+            p = new Producto(nombre);
+        }
+        
+        System.out.print("Ingrese el precio del producto: ");
+        precio = teclado.nextDouble();
+        //p.setPrecio(precio);
+        
+        p = new Producto(nombre, precio);
+        
+        System.out.println("Los datos del producto son:" + p);
+           //System.out.println("¿Deseas incluir este producto al sistema? (S/N): ");
+            teclado.nextLine();
+            //elegir = teclado.nextLine();
+            colecProductos.add(p);
     }
 }

@@ -1,6 +1,8 @@
 
 package dominio;
 
+import java.util.Objects;
+
 /**
  *
  * @author jonat
@@ -14,8 +16,14 @@ public class Producto {
     
     //Constructores
 
+    public Producto(String nombre) {
+        
+        this.nombre = nombre;
+    }
+    
+    
     public Producto() {
-        this.idProductos = ++Producto.contadorProductos;
+        
     }
 
     public Producto(String nombre, double precio) {
@@ -53,7 +61,7 @@ public class Producto {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.idProductos;
+        hash = 83 * hash + Objects.hashCode(this.nombre);
         return hash;
     }
 
@@ -69,8 +77,9 @@ public class Producto {
             return false;
         }
         final Producto other = (Producto) obj;
-        return this.idProductos == other.idProductos;
+        return Objects.equals(this.nombre, other.nombre);
     }
+
     
     //toString
 
@@ -79,7 +88,7 @@ public class Producto {
         StringBuilder sb = new StringBuilder();
         sb.append("\nProducto ");
         sb.append(idProductos);
-        sb.append(": \n").append(nombre);
+        sb.append(" ").append(nombre);
         sb.append("\nPrecio: ").append(precio);
         return sb.toString();
     }
