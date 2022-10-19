@@ -24,10 +24,18 @@ public class Orden {
     
 
     //GET
-    
-    
-    //hashCode and equals
 
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public int getIdOrden() {
+        return idOrden;
+    }
+    
+    
+
+    //hashCode and equals
     @Override
     public int hashCode() {
         int hash = 7;
@@ -53,12 +61,11 @@ public class Orden {
     //ToString    
     
     //Metodos
-    //Se
     public void agregarProducto(Producto producto){
         if(this.productos.size() < maxProductos){
             this.productos.add(producto);
         }else{
-            System.out.println("La cesta esta llena lo siento (MAX. 10)");
+            System.out.println("La cesta esta llena lo siento (MAX. 10) de la Orden numero " + this.idOrden);
         }
     }
     
