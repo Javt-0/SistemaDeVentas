@@ -35,7 +35,7 @@ public class ImpTxt implements IAccesoDatos{
         File archivo= new File(nombre);
         try {
             salida = new PrintWriter(archivo);
-            //salida = new PrintWriter(new FileWriter(nombre, true));
+            salida = new PrintWriter(new FileWriter(nombre, true));
             salida.print("Orden: " + o1.getIdOrden() + "\n");
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
@@ -72,11 +72,12 @@ public class ImpTxt implements IAccesoDatos{
     
     @Override
     public void leerProductos(){
-    
+        
     }
     
     @Override
     public void introducirProducto(){
+        String elegir;
         String nombre;
         double precio;
         System.out.print("\nIngrese el nombre del producto: ");
@@ -96,9 +97,27 @@ public class ImpTxt implements IAccesoDatos{
         p = new Producto(nombre, precio);
         
         System.out.println("Los datos del producto son:" + p);
-           //System.out.println("¿Deseas incluir este producto al sistema? (S/N): ");
-            teclado.nextLine();
-            //elegir = teclado.nextLine();
+        System.out.println("¿Deseas incluir este Producto al stock? (S/N): ");
+        teclado.nextLine();
+        elegir = teclado.nextLine();
+        
+        
+        if(elegir.toUpperCase().compareToIgnoreCase("S") == 0){
             colecProductos.add(p);
+        }else{
+            System.out.println("No se añadio el producto.\n");
+        }
+        
+        PrintWriter salida = null;
+        try {
+            salida = new PrintWriter(new FileWriter("Producto.txt", true));
+            salida.print(colecProductos.get(colecProductos.size()-1).getIdProductos() + "*");
+            salida.print(colecProductos.get(colecProductos.size()-1).getNombre() + "*");
+            salida.print(colecProductos.get(colecProductos.size()-1).getPrecio() + "\n");
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            salida.close();
+        }
     }
 }

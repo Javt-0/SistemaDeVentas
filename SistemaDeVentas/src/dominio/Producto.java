@@ -88,7 +88,7 @@ public class Producto {
         StringBuilder sb = new StringBuilder();
         sb.append("\nProducto ");
         sb.append(idProductos);
-        sb.append(" ").append(nombre);
+        sb.append(": ").append(nombre);
         sb.append("\nPrecio: ").append(precio);
         return sb.toString();
     }
