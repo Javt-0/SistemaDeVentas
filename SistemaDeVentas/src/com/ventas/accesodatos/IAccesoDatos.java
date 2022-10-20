@@ -15,7 +15,7 @@ public interface IAccesoDatos {
     
     void crearProductosTxt(String nombre);
     
-    void leerProductos();
+    void leerProductos(String nombre);
     
     void introducirProducto();
     

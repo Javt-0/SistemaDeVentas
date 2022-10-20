@@ -1,11 +1,1 @@
-Orden: 1
-	1 Patata 2.4
-	2 Leche 1.15
-	3 Huevos 3.6
-	1 Patata 2.4
-	2 Leche 1.15
-	3 Huevos 3.6
-	1 Patata 2.4
-	2 Leche 1.15
-	3 Huevos 3.6
-	1 Patata 2.4
+2-8,13,13,-14,60

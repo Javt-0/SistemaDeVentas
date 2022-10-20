@@ -2,7 +2,10 @@ package com.ventas.accesodatos;
 
 import dominio.Orden;
 import dominio.Producto;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,12 +23,36 @@ public class ImpTxt implements IAccesoDatos{
     
     @Override
     public void crearOrdenesTxt() {
-        System.out.println("Insertando desde MySql");
+        Orden o1 = new Orden();
+        System.out.println("Cuantos productos va introducir a la orden?");
+        int num = teclado.nextInt();
+        teclado.nextLine();
+        //ArrayList<Producto> colecProducOrden = new ArrayList<>();
+        for(int i=0; i<num; i++){
+            System.out.print("Ingrese el nombre del producto que quiere introducir a la orden: ");
+            
+            String nombre = teclado.nextLine().toUpperCase();
+            Producto p = new Producto(nombre);
+
+            while(colecProductos.contains(p) == false){
+                System.out.print("El producto no esta en stock, intente de nuevo porfavor: ");
+                nombre = teclado.next().toUpperCase();
+                p = new Producto(nombre);
+            }
+            
+            for(int j=0; j<colecProductos.size(); j++){
+                if(colecProductos.get(j).getNombre().equalsIgnoreCase(nombre) == true){
+                    o1.agregarProducto(colecProductos.get(j));
+                }
+            }
+        }
+        o1.mostrarOrden();
+        escribirOrden("Ordenes.txt", o1);
     }
 
     @Override
     public void leerOrden() { 
-        System.out.println("Listando desde MySql");
+        
     }
 
     @Override
@@ -36,26 +63,33 @@ public class ImpTxt implements IAccesoDatos{
         try {
             salida = new PrintWriter(archivo);
             salida = new PrintWriter(new FileWriter(nombre, true));
-            salida.print("Orden: " + o1.getIdOrden() + "\n");
+            salida.print(o1.getIdOrden() + "-");
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }finally{
             salida.close();
         }
         
-        //File archivo = new File(nombre);
+        
         for(int i=0; i<produc.size(); i++){
             try {
                 salida = new PrintWriter(new FileWriter(nombre, true));
-                salida.print("\t" + produc.get(i).getIdProductos() + " ");
-                salida.print("" + produc.get(i).getNombre() + " ");
-                salida.print("" + produc.get(i).getPrecio() + "\n");
+                salida.print(produc.get(i).getIdProductos() + ",");
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }finally{
                 salida.close();
             }
         }
+        
+        try {
+                salida = new PrintWriter(new FileWriter(nombre, true));
+                salida.format("-%.2f\n", o1.calcularTotal(o1.getProductos()));
+            } catch (IOException ex) {
+                ex.printStackTrace(System.out);
+            }finally{
+                salida.close();
+            }
         
     }
     
@@ -70,8 +104,41 @@ public class ImpTxt implements IAccesoDatos{
         }
     }
     
+    static int num = 0;
     @Override
-    public void leerProductos(){
+    public void leerProductos(String nombre){
+        BufferedReader entrada = null;
+        File archivo = new File(nombre);
+        int id = 0;
+        String nombrePro = "";
+        double precio = 0;
+        
+        if (num == 0) {
+            try {
+                entrada = new BufferedReader (new FileReader(archivo));
+                String lectura = entrada.readLine();
+
+                while (lectura != null) {
+                    String [] partes = lectura.split("-");
+                    id = Integer.parseInt(partes[0]);
+                    nombrePro = partes[1];
+                    precio = Double.parseDouble(partes[2]);
+                    Producto p = new Producto(nombrePro, precio);
+                    colecProductos.add(p);
+                    lectura = entrada.readLine();
+                }
+                //System.out.println(colecProductos);
+                entrada.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace(System.out);
+            } catch (IOException ex){
+                ex.printStackTrace(System.out);
+            }
+            num = 1;
+        }else if(num == 1){
+            System.out.println(colecProductos);
+        }
+                
         
     }
     
@@ -111,8 +178,8 @@ public class ImpTxt implements IAccesoDatos{
         PrintWriter salida = null;
         try {
             salida = new PrintWriter(new FileWriter("Producto.txt", true));
-            salida.print(colecProductos.get(colecProductos.size()-1).getIdProductos() + "*");
-            salida.print(colecProductos.get(colecProductos.size()-1).getNombre() + "*");
+            salida.print(colecProductos.get(colecProductos.size()-1).getIdProductos() + "-");
+            salida.print(colecProductos.get(colecProductos.size()-1).getNombre() + "-");
             salida.print(colecProductos.get(colecProductos.size()-1).getPrecio() + "\n");
         } catch (IOException ex) {
             ex.printStackTrace(System.out);

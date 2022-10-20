@@ -3,6 +3,7 @@ package dominio;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  *
@@ -19,6 +20,12 @@ public class Orden {
     public Orden() {
         this.idOrden = ++Orden.contadorOrdenes;
     }
+
+    public Orden(ArrayList<Producto> productos) {
+        this.idOrden = ++Orden.contadorOrdenes;
+    }
+    
+    
 
     //SET
 
@@ -71,10 +78,10 @@ public class Orden {
         }
     }
     
-    public double calcularTotal(){
+    public double calcularTotal(ArrayList<Producto> productos){
         double total = 0;
-        for(int i=0; i<this.productos.size(); i++){
-            total += this.productos.get(i).getPrecio();
+        for(int i=0; i<productos.size(); i++){
+            total += productos.get(i).getPrecio();
         }
         return total;
     }
